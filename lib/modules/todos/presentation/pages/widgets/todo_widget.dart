@@ -47,12 +47,18 @@ class _TodoWidgetState extends State<TodoWidget> {
                       fontWeight: FontWeight.w700,
                     ),
                   ),
+                  const SizedBox(width: 12),
                   if (todoDone) ...[
-                    const SizedBox(width: 12),
                     const Icon(
                       Icons.check_circle_outline,
                       size: 18,
                       color: ColorConfig.doneColor,
+                    ),
+                  ] else ...[
+                    const Icon(
+                      Icons.close,
+                      size: 18,
+                      color: ColorConfig.redColor,
                     ),
                   ],
                 ],
@@ -74,6 +80,8 @@ class _TodoWidgetState extends State<TodoWidget> {
   }
 
   void showOptions() {
+    final titleMark =
+        (widget.todo.isDone ?? false) ? "Mark Incomplete" : "Mark Complete";
     showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
@@ -97,13 +105,13 @@ class _TodoWidgetState extends State<TodoWidget> {
               GestureDetector(
                 onTap: _onDone,
                 child: Row(
-                  children: const [
-                    Icon(
+                  children: [
+                    const Icon(
                       Icons.check,
                       size: 16,
                     ),
-                    SizedBox(width: 8),
-                    Text("Mark Done"),
+                    const SizedBox(width: 8),
+                    Text(titleMark),
                   ],
                 ),
               ),

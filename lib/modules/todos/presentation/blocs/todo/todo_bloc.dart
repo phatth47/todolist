@@ -84,8 +84,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
         final currentTodoList = currentResponse.todoList ?? [];
         final indexTodoMarkDone =
             currentTodoList.indexWhere((e) => e.id == event.todo.id);
-        final newTodo =
-            currentTodoList[indexTodoMarkDone].copyWith(isDone: true);
+        final newTodo = currentTodoList[indexTodoMarkDone]
+            .copyWith(isDone: !(event.todo.isDone ?? false));
         currentTodoList[indexTodoMarkDone] = newTodo;
         final newReponse = currentResponse.copyWith(todoList: currentTodoList);
 
