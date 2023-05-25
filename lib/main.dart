@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todolist/modules/home_screen.dart';
 import 'package:todolist/modules/todos/presentation/pages/todo_screen.dart';
 
 void main() {
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const TodoScreen(),
+      home: const HomeScreen(),
     );
   }
 }

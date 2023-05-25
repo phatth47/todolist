@@ -25,14 +25,14 @@ class _TodoWidgetState extends State<TodoWidget> {
     final todoDone = widget.todo.isDone ?? false;
 
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(20),
       margin: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
-        color: colorType,
-        borderRadius: BorderRadius.circular(10),
-      ),
+          color: colorType,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Colors.black)),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -73,7 +73,24 @@ class _TodoWidgetState extends State<TodoWidget> {
             ],
           ),
           const SizedBox(height: 8),
-          Text(description),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(description),
+          ),
+          const SizedBox(height: 16),
+          OutlinedButton(
+            onPressed: () {},
+            child: const Text("Tap me"),
+          ),
+          const SizedBox(height: 16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("ABC"),
+              Text("EDF"),
+              Text("GHI"),
+            ],
+          ),
         ],
       ),
     );

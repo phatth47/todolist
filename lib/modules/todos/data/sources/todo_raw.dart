@@ -35,6 +35,13 @@ final todoRaw = {
       "done": false,
       "type": "normal",
     },
+    {
+      "id": 6,
+      "title": "Do testing",
+      "description": "Do something nice for someone I care about",
+      "done": true,
+      "type": "study",
+    },
   ],
-  "total": 5,
+  "total": 6,
 };

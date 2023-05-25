@@ -28,6 +28,7 @@ class _TodoScreenState extends State<TodoScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text("Todos"),
+          backgroundColor: Colors.blue,
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: _onAdd,
