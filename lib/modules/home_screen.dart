@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todolist/modules/category/presentation/pages/category_screen.dart';
 import 'package:todolist/modules/profile/presentation/profile_screen.dart';
 import 'package:todolist/modules/todos/presentation/pages/todo_screen.dart';
 
@@ -23,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<Widget> pages = const [
     TodoScreen(),
+    CategoryScreen(),
     ProfileScreen(title: "ABCCCCC",),
   ];
 
@@ -36,6 +38,10 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today),
             label: 'Todos',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.category),
+            label: 'Category',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
