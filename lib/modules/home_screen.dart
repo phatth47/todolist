@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<Widget> pages = const [
     TodoScreen(),
-    ProfileScreen(),
+    ProfileScreen(title: "ABCCCCC",),
   ];
 
   @override
