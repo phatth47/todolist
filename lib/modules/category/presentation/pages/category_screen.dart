@@ -8,6 +8,62 @@ class CategoryScreen extends StatefulWidget {
 }
 
 class _CategoryScreenState extends State<CategoryScreen> {
+  bool isShowMoreBtns = false;
+
+  late List<ItemModel> itemList;
+
+  @override
+  void initState() {
+    itemList = [
+      ItemModel(
+          icon: Icons.tiktok,
+          color: Colors.blue,
+          title: "Top top",
+          onTap: () {}),
+      ItemModel(
+          icon: Icons.tiktok,
+          color: Colors.blue,
+          title: "Top top",
+          onTap: () {}),
+      ItemModel(
+          icon: Icons.tiktok,
+          color: Colors.blue,
+          title: "Top top",
+          onTap: () {}),
+      ItemModel(
+          icon: Icons.tiktok,
+          color: Colors.blue,
+          title: "Top top",
+          onTap: () {}),
+      ItemModel(
+          icon: Icons.tiktok,
+          color: Colors.blue,
+          title: "Top top",
+          onTap: () {}),
+      ItemModel(
+          icon: Icons.tiktok,
+          color: Colors.blue,
+          title: "Top top",
+          onTap: () {}),
+      ItemModel(
+          icon: Icons.tiktok,
+          color: Colors.blue,
+          title: "Top top",
+          onTap: () {}),
+      ItemModel(
+        icon: Icons.more_horiz,
+        color: Colors.grey,
+        title: "More",
+        onTap: () {
+          setState(() {
+            isShowMoreBtns = !isShowMoreBtns;
+          });
+        },
+      ),
+    ];
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,42 +72,61 @@ class _CategoryScreenState extends State<CategoryScreen> {
   }
 
   Widget get getBodyWidget {
-    return Column(
-      children: [
-        getHeaderWidget,
-        Expanded(
-          child: GridView.builder(
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          getHeaderWidget,
+          GridView.builder(
+            shrinkWrap: true,
+            primary: false,
             padding: EdgeInsets.zero,
-            itemCount: 8,
+            itemCount: itemList.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 4,
               childAspectRatio: 1,
             ),
             itemBuilder: (context, index) {
-              return Container(
-                margin: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Colors.blueAccent,
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: const Center(
-                  child: Icon(
-                    Icons.chat,
-                    size: 40,
-                  ),
+              final item = itemList[index];
+              return GestureDetector(
+                onTap: item.onTap,
+                child: Column(
+                  children: [
+                    Container(
+                      height: 60,
+                      width: 60,
+                      margin: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: item.color,
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: Center(
+                        child: Icon(
+                          item.icon,
+                          size: 40,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      item.title,
+                      style: const TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
               );
             },
           ),
-        ),
-        Container(
-          height: 10,
-          color: Colors.black12,
-        ),
-        Expanded(
-          child: getNews,
-        ),
-      ],
+          if (isShowMoreBtns) getMoreBtnsWidget,
+          Container(
+            height: 10,
+            color: Colors.black12,
+          ),
+          getNews,
+        ],
+      ),
     );
   }
 
@@ -162,8 +237,57 @@ class _CategoryScreenState extends State<CategoryScreen> {
     );
   }
 
+  Widget get getMoreBtnsWidget {
+    return GridView.builder(
+      shrinkWrap: true,
+      primary: false,
+      padding: EdgeInsets.zero,
+      itemCount: 7,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 4,
+        childAspectRatio: 1,
+      ),
+      itemBuilder: (context, index) {
+        final item = ItemModel(
+          icon: Icons.access_time,
+          color: Colors.green,
+          title: "More btn",
+          onTap: () {},
+        );
+        return Column(
+          children: [
+            Container(
+              height: 60,
+              width: 60,
+              margin: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: item.color,
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: Center(
+                child: Icon(
+                  item.icon,
+                  size: 40,
+                ),
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              item.title,
+              style: const TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   Widget get getNews {
-    return Padding(
+    return Container(
+      height: 250,
       padding: const EdgeInsets.all(10.0),
       child: Column(
         children: [
@@ -221,4 +345,18 @@ class _CategoryScreenState extends State<CategoryScreen> {
       ),
     );
   }
+}
+
+class ItemModel {
+  final IconData icon;
+  final Color color;
+  final String title;
+  final VoidCallback onTap;
+
+  ItemModel({
+    required this.icon,
+    required this.color,
+    required this.title,
+    required this.onTap,
+  });
 }
