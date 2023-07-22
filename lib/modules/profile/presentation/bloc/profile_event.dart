@@ -1,9 +1,23 @@
 part of 'profile_bloc.dart';
 
-abstract class ProfileEvent {}
+abstract class ProfileEvent extends Equatable {
+  const ProfileEvent();
+}
 
-class InitialEvent extends ProfileEvent{}
+class ProfileFetchEvent extends ProfileEvent {
+  const ProfileFetchEvent();
 
-class AddEvent extends ProfileEvent{}
+  @override
+  List<Object?> get props => [];
+}
 
-class RemoveEvent extends ProfileEvent{}
+class ProfileUpdateEvent extends ProfileEvent {
+  final UserModel userModel;
+
+  const ProfileUpdateEvent({
+    required this.userModel,
+  });
+
+  @override
+  List<Object?> get props => [userModel];
+}

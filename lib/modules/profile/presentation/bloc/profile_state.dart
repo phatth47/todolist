@@ -1,15 +1,37 @@
 part of 'profile_bloc.dart';
 
-abstract class ProfileState {}
+class ProfileState extends Equatable {
+  final UserModel? userModel;
+  final bool isFetching;
+  final bool isSaveSuccess;
+  final bool isSaveFailure;
 
-class ProfileInitial extends ProfileState {}
-
-class LoadingState extends ProfileState {}
-
-class DataState extends ProfileState {
-  final int data;
-
-  DataState({
-    this.data = 0,
+  const ProfileState({
+    this.userModel,
+    this.isFetching = false,
+    this.isSaveSuccess = false,
+    this.isSaveFailure = false,
   });
+
+  @override
+  List<Object?> get props => [
+        userModel,
+        isFetching,
+        isSaveSuccess,
+        isSaveFailure,
+      ];
+
+  ProfileState copyWith({
+    UserModel? userModel,
+    bool? isFetching,
+    bool? isSaveSuccess,
+    bool? isSaveFailure,
+  }) {
+    return ProfileState(
+      userModel: userModel ?? this.userModel,
+      isFetching: isFetching ?? this.isFetching,
+      isSaveSuccess: isSaveSuccess ?? this.isSaveSuccess,
+      isSaveFailure: isSaveFailure ?? this.isSaveFailure,
+    );
+  }
 }

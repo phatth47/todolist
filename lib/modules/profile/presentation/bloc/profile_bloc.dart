@@ -1,35 +1,52 @@
 import 'dart:async';
-
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todolist/modules/profile/data/user_model.dart';
 
 part 'profile_event.dart';
 
 part 'profile_state.dart';
 
+const userFake = UserModel(
+  username: "nguyen.van",
+  fullname: "Nguyen Van A",
+  email: "nguyenvana@mail.com",
+  phone: "0123456789",
+  gender: "male",
+);
+
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
-  ProfileBloc() : super(ProfileInitial()) {
-    on<InitialEvent>(_mapInitialEventToState);
-    on<AddEvent>(_mapAddEventToState);
-    on<RemoveEvent>(_mapRemoveEventToState);
+  ProfileBloc() : super(const ProfileState()) {
+    on<ProfileFetchEvent>(_onFetchEvent);
+    on<ProfileUpdateEvent>(_onUpdateEvent);
   }
 
-  Future<void> _mapInitialEventToState(InitialEvent event, emit) async {
-    emit(LoadingState());
-    await Future.delayed(const Duration(seconds: 2));
-    return emit(DataState());
-  }
+  Future<void> _onFetchEvent(
+    ProfileFetchEvent event,
+    Emitter<ProfileState> emit,
+  ) async {
+    emit(state.copyWith(isFetching: true));
+    try {
+      await Future.delayed(const Duration(seconds: 2));
 
-  void _mapAddEventToState(AddEvent event, emit) {
-    if (state is DataState) {
-      final data = (state as DataState).data;
-      emit(DataState(data: data + 1));
+      /// TODO: FAKE data for testing
+      UserModel userModel = userFake;
+      return emit(state.copyWith(
+        isFetching: false,
+        userModel: userModel,
+      ));
+    } catch (e) {
+      return emit(state.copyWith(
+        isFetching: false,
+        isSaveFailure: true,
+      ));
     }
   }
 
-  void _mapRemoveEventToState(RemoveEvent event, emit) {
-    if (state is DataState) {
-      final data = (state as DataState).data;
-      emit(DataState(data: data - 1));
-    }
+  void _onUpdateEvent(
+    ProfileUpdateEvent event,
+    Emitter<ProfileState> emit,
+  ) async {
+    emit(state.copyWith(userModel: event.userModel));
   }
 }
